@@ -1,0 +1,5 @@
+{
+  "devBaseUrl": "http://20.54.227.23/ussdmenu",
+  "phoneNumber": "2348095834592",
+  "ussdMenu_FistPage": "Welcome\n\n1.Open Account\n2.Account Balance\n3.Airtime/Data\n4.Transfer\n5.Cable TV\n6.Internet\n7.Electricity\n8.Loans\n99.Next\n"
+}

@@ -1,0 +1,222 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-12-26T19:48:50.157Z",
+    "end": "2022-12-26T19:49:07.478Z",
+    "duration": 10908,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "464d4085-ef4a-4eff-a87d-2ffb3cc89d98",
+      "title": "",
+      "fullFile": "cypress\\e2e\\USSDMenu\\airtime.cy.js",
+      "file": "cypress\\e2e\\USSDMenu\\airtime.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "13a7abcb-20dc-43fc-80e2-b5b2a18ac981",
+          "title": "Airtime for self and others ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Successful Airtime-self",
+              "fullTitle": "Airtime for self and others  Successful Airtime-self",
+              "timedOut": null,
+              "duration": 3501,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//generate random string for session id\nlet sessionid = Math.random().toString(36).substring(2, 7); //Send request to access USSD Menu\ncy.request({\n  method: \"GET\",\n  url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=%2A945&sessionid=\" + sessionid + \"&network=MTN&action=begin&allinput=%2A945%23\"\n}) //Validate response payload returned is the USSD Menu\n.then(function (response) {\n  cy.log(JSON.stringify(response.body));\n  expect(response.status).to.eq(200);\n  expect(response.body.message).to.eq(this.test_data.ussdMenu_FistPage);\n}) //Select option 3 Airtime/Data\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=3&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Buy Airtime/Data\\n1.Airtime Self\\n2.Airtime Other\\n3.Data Self\\n4.Data Other\\n0. Main Nenu\\n\");\n  });\n}) //Select option 1, Airtime - self\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=1&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Enter Amount\");\n  });\n}) //Enter Airtime Amount\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=100&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.contain(\"Your request is being processed\");\n  });\n});",
+              "err": {},
+              "uuid": "37a45b73-fec0-4c1b-887f-b02bd98bbe6d",
+              "parentUUID": "13a7abcb-20dc-43fc-80e2-b5b2a18ac981",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Successful Airtime-others with valid Pin",
+              "fullTitle": "Airtime for self and others  Successful Airtime-others with valid Pin",
+              "timedOut": null,
+              "duration": 3011,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//generate random string for session id\nlet sessionid = Math.random().toString(36).substring(2, 7); //Send request to access USSD Menu\ncy.request({\n  method: \"GET\",\n  url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=%2A945&sessionid=\" + sessionid + \"&network=MTN&action=begin&allinput=%2A945%23\"\n}) //Validate response payload returned is the USSD Menu\n.then(function (response) {\n  cy.log(JSON.stringify(response.body));\n  expect(response.status).to.eq(200);\n  expect(response.body.message).to.eq(this.test_data.ussdMenu_FistPage);\n}) //Select option 3 Airtime/Data\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=3&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Buy Airtime/Data\\n1.Airtime Self\\n2.Airtime Other\\n3.Data Self\\n4.Data Other\\n0. Main Nenu\\n\");\n  });\n}) //Select option 1, Airtime - self\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=2&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200); //   expect(response.body.message).to.contain(\n    //     \"Enter the recipient phonenumber\"\n    //   );\n  });\n}) //Enter recipient phone number\n.then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=08148413433&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Enter Amount\");\n  });\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=100&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.contain(\"Enter your PIN\");\n  });\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=\" + this.test_data.phoneNumber + \"&input=1234&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.contain(\"Your request is being processed\");\n  });\n});",
+              "err": {},
+              "uuid": "bf0357bb-1a96-4c10-8a02-dff6b7f56d92",
+              "parentUUID": "13a7abcb-20dc-43fc-80e2-b5b2a18ac981",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Airtime-others with Invalid Pin",
+              "fullTitle": "Airtime for self and others  Airtime-others with Invalid Pin",
+              "timedOut": null,
+              "duration": 14,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "852a7719-10c8-433d-8fe6-879f7120ad4a",
+              "parentUUID": "13a7abcb-20dc-43fc-80e2-b5b2a18ac981",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "37a45b73-fec0-4c1b-887f-b02bd98bbe6d",
+            "bf0357bb-1a96-4c10-8a02-dff6b7f56d92",
+            "852a7719-10c8-433d-8fe6-879f7120ad4a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6526,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "f2e027b4-1d77-42fa-b731-a8d05cccb2ac",
+      "title": "",
+      "fullFile": "cypress\\e2e\\USSDMenu\\accountBalance.cy.js",
+      "file": "cypress\\e2e\\USSDMenu\\accountBalance.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "02f85896-6c52-409b-8dab-ab02016840f5",
+          "title": "Account balance test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Check customer's Account balance",
+              "fullTitle": "Account balance test Check customer's Account balance",
+              "timedOut": null,
+              "duration": 2542,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//generate random string for session id\nlet sessionid = Math.random().toString(36).substring(2, 7);\ncy.request({\n  method: \"GET\",\n  url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=%2A945&sessionid=\" + sessionid + \"&network=MTN&action=begin&allinput=%2A945%23\"\n}).then(function (response) {\n  cy.log(JSON.stringify(response.body));\n  expect(response.status).to.eq(200);\n  expect(response.body.message).to.eq(this.test_data.ussdMenu_FistPage);\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=2&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Enter PIN to proceed\\n\");\n  });\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=1234&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.contain(\"Wema Account Balance\");\n  });\n});",
+              "err": {},
+              "uuid": "8d0ff120-cd37-4c7c-b3b8-f14daa770dea",
+              "parentUUID": "02f85896-6c52-409b-8dab-ab02016840f5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Invalid Pin when checking Account balance",
+              "fullTitle": "Account balance test Invalid Pin when checking Account balance",
+              "timedOut": null,
+              "duration": 1840,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//generate random string for session id\nlet sessionid = Math.random().toString(36).substring(2, 7);\ncy.request({\n  method: \"GET\",\n  url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=%2A945&sessionid=\" + sessionid + \"&network=MTN&action=begin&allinput=%2A945%23\"\n}).then(function (response) {\n  cy.log(JSON.stringify(response.body));\n  expect(response.status).to.eq(200);\n  expect(response.body.message).to.eq(this.test_data.ussdMenu_FistPage);\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=2&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.eq(\"Enter PIN to proceed\\n\");\n  });\n}).then(function () {\n  cy.request({\n    method: \"GET\",\n    url: this.test_data.devBaseUrl + \"/api/cswhook/GetRequest?msisdn=2347035489054&input=3423&sessionid=\" + sessionid + \"&network=MTN&action=request&allinput=%2A945%23\"\n  }).then(function (response) {\n    cy.log(JSON.stringify(response.body));\n    expect(response.status).to.eq(200);\n    expect(response.body.message).to.contain(\"Incorrect PIN\");\n  });\n});",
+              "err": {},
+              "uuid": "b5c187a8-712b-4f50-b50e-a9d04a201aa0",
+              "parentUUID": "02f85896-6c52-409b-8dab-ab02016840f5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8d0ff120-cd37-4c7c-b3b8-f14daa770dea",
+            "b5c187a8-712b-4f50-b50e-a9d04a201aa0"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4382,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "report",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true,
+        "reportDir": "cypress/reports",
+        "reportFilename": "report"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

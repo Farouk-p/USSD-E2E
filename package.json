@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "rm -r ./cypress/reports/*.json",
+    "pretest": "del .\\cypress\\reports\\*.json",
     "test": "npm run cypress-test || npm run posttest",
     "cypress-test": "cypress run --reporter mochawesome ./cypress/reports",
     "posttest": "npm run merge-reports && npm run generate-htmlreport",
-    "merge-reports": "mochawesome-merge ./cypress/reports/*.json > cypress/reports/output.json",
-    "generate-htmlreport": "marge cypress/reports/output.json --reportDir cypress/reports"
+    "merge-reports": "mochawesome-merge .\\cypress\\reports\\*.json > output.json",
+    "generate-htmlreport": "marge output.json --reportDir cypress\\reports"
   },
   "keywords": [],
   "author": "",
